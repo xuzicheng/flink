@@ -23,11 +23,16 @@ public class Test01_FlinkCDC {
                 .tableList("gmall2024_config.t_user") // set captured table
                 .username("root")
                 .password("000000")
+                //.startFromLatest(StartOption.initial())
                 .deserializer(new JsonDebeziumDeserializationSchema()) // converts SourceRecord to JSON String
                 .build();
 
 
+        //{"before":null,"after":{"name":"s1","age":11},"source":{"version":"1.9.7.Final","connector":"mysql","name":"mysql_binlog_source","ts_ms":0,"snapshot":"false","db":"gmall2024_config","sequence":null,"table":"t_user","server_id":0,"gtid":null,"file":"","pos":0,"row":0,"thread":null,"query":null},"op":"r","ts_ms":1725801996617,"transaction":null}
+        //{"before":null,"after":{"name":"3","age":1231},"source":{"version":"1.9.7.Final","connector":"mysql","name":"mysql_binlog_source","ts_ms":1725802117000,"snapshot":"false","db":"gmall2024_config","sequence":null,"table":"t_user","server_id":1,"gtid":null,"file":"mysql-bin.000019","pos":700,"row":0,"thread":16,"query":null},"op":"c","ts_ms":1725802109932,"transaction":null}
+        //{"before":null,"after":{"name":"www","age":121},"source":{"version":"1.9.7.Final","connector":"mysql","name":"mysql_binlog_source","ts_ms":1725802151000,"snapshot":"false","db":"gmall2024_config","sequence":null,"table":"t_user","server_id":1,"gtid":null,"file":"mysql-bin.000019","pos":1021,"row":0,"thread":16,"query":null},"op":"c","ts_ms":1725802144303,"transaction":null}
         // enable checkpoint
+
         env.enableCheckpointing(3000);
 
         env
